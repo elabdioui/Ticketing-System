@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ticketing_System;
 using Ticketing_System.Models;
+using Ticketing_System.Services;
 
 namespace Ticketing_System
 {
@@ -16,6 +17,12 @@ namespace Ticketing_System
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            
+
+            builder.Services.AddScoped<ITicketService, TicketService>();
+
+
+            
 
             builder.Services.AddDefaultIdentity<User>(options =>
             {

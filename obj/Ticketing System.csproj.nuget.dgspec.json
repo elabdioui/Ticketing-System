@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\elabd\\Desktop\\Ticketing System\\Ticketing System.csproj": {}
+    "/Users/youssefkitabrhi/Documents/pfa/Ticketing-System/Ticketing System.csproj": {}
   },
   "projects": {
-    "C:\\Users\\elabd\\Desktop\\Ticketing System\\Ticketing System.csproj": {
+    "/Users/youssefkitabrhi/Documents/pfa/Ticketing-System/Ticketing System.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\elabd\\Desktop\\Ticketing System\\Ticketing System.csproj",
+        "projectUniqueName": "/Users/youssefkitabrhi/Documents/pfa/Ticketing-System/Ticketing System.csproj",
         "projectName": "Ticketing System",
-        "projectPath": "C:\\Users\\elabd\\Desktop\\Ticketing System\\Ticketing System.csproj",
-        "packagesPath": "C:\\Users\\elabd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\elabd\\Desktop\\Ticketing System\\obj\\",
+        "projectPath": "/Users/youssefkitabrhi/Documents/pfa/Ticketing-System/Ticketing System.csproj",
+        "packagesPath": "/Users/youssefkitabrhi/.nuget/packages/",
+        "outputPath": "/Users/youssefkitabrhi/Documents/pfa/Ticketing-System/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\elabd\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/youssefkitabrhi/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -108,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
