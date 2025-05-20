@@ -22,7 +22,7 @@ namespace Ticketing_System
             var builder = WebApplication.CreateBuilder(args);
 
             // Forcer HTTP uniquement pour Docker
-            builder.WebHost.UseUrls("http://+:80");
+            builder.WebHost.UseUrls("https://+:7041");
 
             // Ajout de la prise en charge des variables d'environnement (critique pour Docker)
             builder.Configuration.AddEnvironmentVariables();

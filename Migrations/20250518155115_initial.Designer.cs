@@ -9,11 +9,11 @@ using Ticketing_System;
 
 #nullable disable
 
-namespace Ticketing_System.Migrations
+namespace TicketingSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250517135127_initial1")]
-    partial class initial1
+    [Migration("20250518155115_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

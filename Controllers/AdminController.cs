@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Ticketing_System.Models;
 using Ticketing_System.Service_Layer.Interfaces;
 using Ticketing_System.Service_Layer.Service;
@@ -17,19 +17,25 @@ namespace Ticketing_System.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IAssignmentRuleService _assignmentRuleService;
+        private readonly ILogger<AdminController> _logger;
+        private readonly CompleteUserDeletionService _deletionService;
 
         public AdminController(
             IUserService userService,
             RoleManager<Role> roleManager,
             UserManager<User> userManager,
             ApplicationDbContext context,
-            IAssignmentRuleService assignmentRuleService)
+            IAssignmentRuleService assignmentRuleService,
+            ILogger<AdminController> logger,
+            CompleteUserDeletionService deletionService)
         {
             _userService = userService;
             _roleManager = roleManager;
             _userManager = userManager;
-            _context=context;
-            _assignmentRuleService=assignmentRuleService;
+            _context = context;
+            _assignmentRuleService = assignmentRuleService;
+            _logger = logger;
+            _deletionService = deletionService;
         }
 
         [HttpGet]
@@ -199,6 +205,7 @@ namespace Ticketing_System.Controllers
             return View(user);
         }
 
+        // AdminController.cs - Fixed User Deletion Method
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUserConfirmed(string id)
@@ -206,12 +213,9 @@ namespace Ticketing_System.Controllers
             try
             {
                 // Utiliser le service de suppression complète
-                var deletionService = HttpContext.RequestServices.GetService<CompleteUserDeletionService>();
-                if (deletionService == null)
-                {
-                    TempData["ErrorMessage"] = "Service de suppression non disponible.";
-                    return RedirectToAction(nameof(Users));
-                }
+                var deletionService = new CompleteUserDeletionService(
+                    _context,
+                    HttpContext.RequestServices.GetRequiredService<ILogger<CompleteUserDeletionService>>());
 
                 await deletionService.DeleteUserCompletelyAsync(id);
                 TempData["SuccessMessage"] = "User deleted successfully!";
@@ -226,45 +230,37 @@ namespace Ticketing_System.Controllers
 
 
         [HttpGet]
-public async Task<IActionResult> Dashboard()
-{
-    ViewBag.TotalUsers = await _userService.GetTotalUsersAsync();
-    ViewBag.OpenTickets = await _userService.GetTicketsByStatusAsync("Open");
-    ViewBag.ResolvedTickets = await _userService.GetTicketsByStatusAsync("Resolved");
-    ViewBag.ClosedTickets = await _userService.GetTicketsByStatusAsync("Closed");
+        public async Task<IActionResult> Dashboard()
+        {
+            ViewBag.TotalUsers = await _userService.GetTotalUsersAsync();
+            ViewBag.OpenTickets = await _userService.GetTicketsByStatusAsync("Open");
+            ViewBag.ResolvedTickets = await _userService.GetTicketsByStatusAsync("Resolved");
+            ViewBag.ClosedTickets = await _userService.GetTicketsByStatusAsync("Closed");
 
-    ViewBag.HighPriorityTickets = await _userService.GetTicketsByPriorityAsync("High");
-    ViewBag.MediumPriorityTickets = await _userService.GetTicketsByPriorityAsync("Medium");
-    ViewBag.LowPriorityTickets = await _userService.GetTicketsByPriorityAsync("Low");
+            ViewBag.HighPriorityTickets = await _userService.GetTicketsByPriorityAsync("High");
+            ViewBag.MediumPriorityTickets = await _userService.GetTicketsByPriorityAsync("Medium");
+            ViewBag.LowPriorityTickets = await _userService.GetTicketsByPriorityAsync("Low");
 
-    // 👇 Ajouter ces listes pour les graphiques
-    var ticketsStatus = new List<object>
-    {
-        new { Label = "Open", Value = ViewBag.OpenTickets },
-        new { Label = "Resolved", Value = ViewBag.ResolvedTickets },
-        new { Label = "Closed", Value = ViewBag.ClosedTickets }
-    };
+            // 👇 Ajouter ces listes pour les graphiques
+            var ticketsStatus = new List<object>
+            {
+                new { Label = "Open", Value = ViewBag.OpenTickets },
+                new { Label = "Resolved", Value = ViewBag.ResolvedTickets },
+                new { Label = "Closed", Value = ViewBag.ClosedTickets }
+            };
 
-    var ticketsPriority = new List<object>
-    {
-        new { Label = "High", Value = ViewBag.HighPriorityTickets },
-        new { Label = "Medium", Value = ViewBag.MediumPriorityTickets },
-        new { Label = "Low", Value = ViewBag.LowPriorityTickets }
-    };
+            var ticketsPriority = new List<object>
+            {
+                new { Label = "High", Value = ViewBag.HighPriorityTickets },
+                new { Label = "Medium", Value = ViewBag.MediumPriorityTickets },
+                new { Label = "Low", Value = ViewBag.LowPriorityTickets }
+            };
 
-    ViewBag.TicketsStatusData = ticketsStatus;
-    ViewBag.TicketsPriorityData = ticketsPriority;
+            ViewBag.TicketsStatusData = ticketsStatus;
+            ViewBag.TicketsPriorityData = ticketsPriority;
 
-    return View();
-}
-
-
-
-
-
-
-
-
+            return View();
+        }
 
         // GET: Admin/CreateUser
         [HttpGet]

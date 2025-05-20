@@ -1,0 +1,16 @@
+ci/cd
+sonarkub
+
+junit
+mojito
+maven 
+
+ansible
+azure
+jenkins
+
+---------------
+
+
+
+

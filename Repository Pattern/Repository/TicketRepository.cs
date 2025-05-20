@@ -7,6 +7,11 @@ public class TicketRepository : Repository<Ticket>, ITicketRepository
 {
     public TicketRepository(ApplicationDbContext context) : base(context) { }
 
+    public ApplicationDbContext GetContext()
+    {
+        return _context;
+    }
+
     public async Task<IEnumerable<Ticket>> GetTicketsByUserIdAsync(string userId)
     {
         return await _dbSet

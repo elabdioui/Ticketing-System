@@ -1,0 +1,23 @@
+Bt002748095  attijari
+---------------------------
+Lbankalik HEL00104545
+----------------------------
+Cih 5991408
+
+
+port postgres sql 8000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#GDG #AIHackathon #Innovation #TechForGood #OpportunAI #EMSI #FutureMakers  

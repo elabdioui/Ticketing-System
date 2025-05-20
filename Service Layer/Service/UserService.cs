@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Ticketing_System.Models;
-using Ticketing_System.Repository.Interfaces;
-using Ticketing_System.Repository_Pattern.Interfaces;
-using Ticketing_System.Service_Layer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ticketing_System.Models;
+using Ticketing_System.Repository.Interfaces;
+using Ticketing_System.Repository_Pattern.Interfaces;
+using Ticketing_System.Service_Layer.Interfaces;
+using Ticketing_System.Service_Layer.Service;
 
 namespace Ticketing_System.Service_Layer.Services
 {
@@ -16,15 +17,20 @@ namespace Ticketing_System.Service_Layer.Services
         private readonly IUserRepository _userRepository;
         private readonly ITicketRepository _ticketRepository;
         private readonly UserManager<User> _userManager;
+        private readonly CompleteUserDeletionService _deletionService;
+
+
 
         public UserService(
             IUserRepository userRepository,
             ITicketRepository ticketRepository,
+            CompleteUserDeletionService deletionService,
             UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _ticketRepository = ticketRepository;
             _userManager = userManager;
+            _deletionService = deletionService;
         }
 
         // ----------------- GESTION UTILISATEURS -----------------

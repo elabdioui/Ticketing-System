@@ -18,12 +18,15 @@ public class TicketService : ITicketService
     private readonly IUserRepository _userRepository;
     private readonly IAssignmentRuleService _assignmentRuleService;
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<CompleteUserDeletionService> _logger;
+
 
     public TicketService(
         ITicketRepository ticketRepository,
         ITicketHistoryService historyService,
         IUserRepository userRepository,
         IAssignmentRuleService assignmentRuleService,
+        ILogger<CompleteUserDeletionService> logger,
         ApplicationDbContext context)
     {
         _ticketRepository = ticketRepository;
@@ -31,6 +34,7 @@ public class TicketService : ITicketService
         _userRepository = userRepository;
         _assignmentRuleService = assignmentRuleService;
         _context = context;
+        _logger = logger;
     }
 
     // Méthodes de base CRUD
@@ -141,6 +145,7 @@ public class TicketService : ITicketService
         await _ticketRepository.UpdateAsync(existingTicket);
     }
 
+    // TicketService.cs - Fixed DeleteTicketAsync method
     public async Task DeleteTicketAsync(int ticketId)
     {
         var ticket = await _ticketRepository.GetByIdAsync(ticketId);
@@ -149,18 +154,30 @@ public class TicketService : ITicketService
             throw new KeyNotFoundException($"Ticket with ID {ticketId} not found");
         }
 
-        // Créer une entrée d'historique pour la suppression
-        await _historyService.AddHistoryEntryAsync(new TicketHistory
+        // Utiliser le DbContext via le repository pour accéder à la stratégie d'exécution
+        var repository = _ticketRepository as TicketRepository;
+        if (repository == null)
         {
-            TicketID = ticketId,
-            ChangedByUserId = ticket.CreatedByUserId, // Ou l'ID de l'utilisateur qui fait la suppression
-            FieldName = "Status",
-            OldValue = ticket.Status.ToString(),
-            NewValue = "Deleted",
-            ChangedDate = DateTime.Now
-        });
+            throw new Exception("Le repository utilisé n'est pas du type TicketRepository.");
+        }
 
-        await _ticketRepository.DeleteAsync(ticket);
+        var context = repository.GetContext();
+        var strategy = context.Database.CreateExecutionStrategy();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                await _ticketRepository.DeleteAsync(ticket);
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                throw new Exception($"Failed to delete ticket: {ex.Message}", ex);
+            }
+        });
     }
 
     // Filtrage et recherche

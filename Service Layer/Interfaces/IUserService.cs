@@ -22,6 +22,6 @@ namespace Ticketing_System.Service_Layer.Interfaces
         Task<int> GetTotalUsersAsync();
 Task<int> GetTicketsByStatusAsync(string status);
 Task<int> GetTicketsByPriorityAsync(string priority);
-
+        
     }
 }

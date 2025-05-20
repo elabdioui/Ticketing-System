@@ -1,13 +1,9 @@
-﻿```html
-
+﻿@model Ticketing_System.Models.Ticket
 @{
     Layout = User.IsInRole("Admin") ? "~/Views/Shared/_AdminLayout.cshtml" : "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Supprimer le ticket";
 }
 
-@model Ticketing_System.Models.Ticket
-@{
-    ViewData["Title"] = "Delete Ticket";
-}
 <div class="container-fluid py-4">
     <div class="quantum-card quantum-shadow mb-4">
         <div class="card-header bg-danger text-white">
@@ -101,3 +97,121 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Styles pour les badges de statut et priorité */
+    .quantum-status {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .quantum-status-icon {
+        margin-right: 0.4rem;
+        font-size: 0.6rem;
+    }
+
+    .quantum-status.open {
+        background-color: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+    }
+
+    .quantum-status.inprogress {
+        background-color: rgba(241, 196, 15, 0.15);
+        color: #f1c40f;
+    }
+
+    .quantum-status.resolved {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: #2ecc71;
+    }
+
+    .quantum-status.closed {
+        background-color: rgba(189, 195, 199, 0.15);
+        color: #7f8c8d;
+    }
+
+    .quantum-priority {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .quantum-priority-icon {
+        margin-right: 0.4rem;
+    }
+
+    .quantum-priority.low {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: #2ecc71;
+    }
+
+    .quantum-priority.medium {
+        background-color: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+    }
+
+    .quantum-priority.high {
+        background-color: rgba(241, 196, 15, 0.15);
+        color: #f39c12;
+    }
+
+    .quantum-priority.critical {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: #e74c3c;
+    }
+
+    .quantum-badge {
+        padding: 0.35rem 0.75rem;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .quantum-badge-primary {
+        background-color: rgba(52, 152, 219, 0.15);
+        color: #3498db;
+    }
+
+    /* Carte et boutons */
+    .quantum-card {
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .quantum-shadow {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .quantum-btn {
+        padding: 0.6rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s;
+        border: none;
+    }
+
+    .quantum-btn-secondary {
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+        .quantum-btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+    .quantum-btn-danger {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+        .quantum-btn-danger:hover {
+            background-color: #c0392b;
+        }
+</style>

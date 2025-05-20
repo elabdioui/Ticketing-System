@@ -8,7 +8,7 @@ using Ticketing_System;
 
 #nullable disable
 
-namespace Ticketing_System.Migrations
+namespace TicketingSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

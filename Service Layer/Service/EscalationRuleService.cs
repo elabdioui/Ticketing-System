@@ -14,17 +14,22 @@ namespace Ticketing_System.Service_Layer.Service
         private readonly ITicketRepository _ticketRepository;
         private readonly ITicketHistoryService _historyService;
         private readonly INotificationService _notificationService;
+        private readonly IUserService _userService;
+        private string _systemUserId;
+
 
         public EscalationRuleService(
             IEscalationRuleRepository ruleRepository,
             ITicketRepository ticketRepository,
             ITicketHistoryService historyService,
+            IUserService userService,
             INotificationService notificationService)
         {
             _ruleRepository = ruleRepository;
             _ticketRepository = ticketRepository;
             _historyService = historyService;
             _notificationService = notificationService;
+            _userService = userService;
         }
 
         public async Task<IEnumerable<EscalationRule>> GetAllRulesAsync()

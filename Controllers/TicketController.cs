@@ -480,7 +480,6 @@ namespace Ticketing_System.Controllers
                 }
             }
 
-            // GET: Ticket/Delete/5
             [HttpGet]
             [Authorize]
             public async Task<IActionResult> Delete(int id)
@@ -488,6 +487,14 @@ namespace Ticketing_System.Controllers
                 try
                 {
                     var ticket = await _ticketService.GetTicketByIdAsync(id);
+
+                    // Check if user has permission to delete
+                    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (!User.IsInRole("Admin") && ticket.CreatedByUserId != userId)
+                    {
+                        return Forbid();
+                    }
+
                     return View(ticket);
                 }
                 catch (KeyNotFoundException)
@@ -496,7 +503,6 @@ namespace Ticketing_System.Controllers
                 }
             }
 
-            // POST: Ticket/Delete/5
             [HttpPost, ActionName("Delete")]
             [Authorize]
             [ValidateAntiForgeryToken]
@@ -504,7 +510,26 @@ namespace Ticketing_System.Controllers
             {
                 try
                 {
+                    // Get the ticket first to check permissions
+                    var ticket = await _ticketService.GetTicketByIdAsync(id);
+                    if (ticket == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Check if user has permission to delete
+                    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (!User.IsInRole("Admin") && ticket.CreatedByUserId != userId)
+                    {
+                        return Forbid();
+                    }
+
+                    // Delete related entities manually
+                    await DeleteTicketRelatedEntitiesAsync(id);
+
+                    // Now delete the ticket
                     await _ticketService.DeleteTicketAsync(id);
+
                     TempData["SuccessMessage"] = "Ticket deleted successfully!";
                     return RedirectToAction(nameof(Index));
                 }
@@ -514,19 +539,69 @@ namespace Ticketing_System.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Retourner à la vue de suppression avec erreur
+                    TempData["ErrorMessage"] = $"Error deleting ticket: {ex.Message}";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            // Helper method to delete ticket-related entities
+            // Méthode utilitaire pour supprimer les entités liées au ticket
+            private async Task DeleteTicketRelatedEntitiesAsync(int ticketId)
+            {
+                _logger.LogInformation($"Suppression des entités liées au ticket {ticketId}");
+
+                var strategy = _context.Database.CreateExecutionStrategy();
+
+                await strategy.ExecuteAsync(async () =>
+                {
+                    using var transaction = await _context.Database.BeginTransactionAsync();
                     try
                     {
-                        var ticket = await _ticketService.GetTicketByIdAsync(id);
-                        ModelState.AddModelError("", $"Unable to delete ticket: {ex.Message}");
-                        return View(ticket);
+                        // Supprimer les pièces jointes
+                        var attachments = await _context.Attachments
+                            .Where(a => a.TicketID == ticketId)
+                            .ToListAsync();
+
+                        if (attachments.Any())
+                        {
+                            _logger.LogInformation($"Suppression de {attachments.Count} pièces jointes");
+                            _context.Attachments.RemoveRange(attachments);
+                        }
+
+                        // Supprimer les commentaires
+                        var comments = await _context.TicketComments
+                            .Where(c => c.TicketID == ticketId)
+                            .ToListAsync();
+
+                        if (comments.Any())
+                        {
+                            _logger.LogInformation($"Suppression de {comments.Count} commentaires");
+                            _context.TicketComments.RemoveRange(comments);
+                        }
+
+                        // Supprimer l'historique
+                        var history = await _context.TicketHistories
+                            .Where(h => h.TicketID == ticketId)
+                            .ToListAsync();
+
+                        if (history.Any())
+                        {
+                            _logger.LogInformation($"Suppression de {history.Count} entrées d'historique");
+                            _context.TicketHistories.RemoveRange(history);
+                        }
+
+                        // Sauvegarder les changements
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
+                        _logger.LogInformation($"Suppression des entités liées au ticket {ticketId} effectuée avec succès");
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        TempData["ErrorMessage"] = $"Error deleting ticket: {ex.Message}";
-                        return RedirectToAction(nameof(Index));
+                        await transaction.RollbackAsync();
+                        _logger.LogError(ex, $"Erreur lors de la suppression des entités liées au ticket {ticketId}: {ex.Message}");
+                        throw;
                     }
-                }
+                });
             }
 
             // GET: Ticket/ChangeStatus/5?status=Resolved

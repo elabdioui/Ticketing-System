@@ -1,46 +1,46 @@
 ﻿@model Ticketing_System.Models.User
 @{
     Layout = User.IsInRole("Admin") ? "~/Views/Shared/_AdminLayout.cshtml" : "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Delete User";
+    ViewData["Title"] = "Supprimer l'utilisateur";
     var userRoles = ViewBag.UserRoles as IEnumerable<string>;
 }
 
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-action="Users">Users</a></li>
-            <li class="breadcrumb-item"><a asp-action="UserDetails" asp-route-id="@Model.Id">Details</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Delete</li>
+            <li class="breadcrumb-item"><a asp-action="Users">Utilisateurs</a></li>
+            <li class="breadcrumb-item"><a asp-action="UserDetails" asp-route-id="@Model.Id">Détails</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Supprimer</li>
         </ol>
     </nav>
 
     <div class="card shadow-sm border-danger">
         <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">Confirm User Deletion</h4>
+            <h4 class="mb-0">Confirmer la suppression de l'utilisateur</h4>
         </div>
         <div class="card-body">
             <div class="alert alert-danger">
                 <i class="fas fa-exclamation-triangle me-2"></i>
-                <strong>WARNING:</strong> You are about to permanently delete this user. This action cannot be undone and will:
+                <strong>ATTENTION :</strong> Vous êtes sur le point de supprimer définitivement cet utilisateur. Cette action ne peut pas être annulée et va :
                 <ul class="mb-0 mt-2">
-                    <li>Reassign the user's created tickets to the system user</li>
-                    <li>Remove the user from all teams</li>
-                    <li>Anonymize the user's comments</li>
-                    <li>Delete all notifications</li>
-                    <li>Permanently remove the user account</li>
+                    <li>Réassigner les tickets créés par l'utilisateur à l'utilisateur système</li>
+                    <li>Retirer l'utilisateur de toutes les équipes</li>
+                    <li>Anonymiser les commentaires de l'utilisateur</li>
+                    <li>Supprimer toutes les notifications</li>
+                    <li>Supprimer définitivement le compte utilisateur</li>
                 </ul>
             </div>
 
             <div class="mb-4">
-                <h5>User Information</h5>
+                <h5>Informations de l'utilisateur</h5>
                 <dl class="row">
-                    <dt class="col-sm-3">Name</dt>
+                    <dt class="col-sm-3">Nom</dt>
                     <dd class="col-sm-9">@Model.FirstName @Model.LastName</dd>
 
                     <dt class="col-sm-3">Email</dt>
                     <dd class="col-sm-9">@Model.Email</dd>
 
-                    <dt class="col-sm-3">Roles</dt>
+                    <dt class="col-sm-3">Rôles</dt>
                     <dd class="col-sm-9">
                         @if (userRoles != null && userRoles.Any())
                         {
@@ -51,11 +51,11 @@
                         }
                         else
                         {
-                            <span class="text-muted">No roles assigned</span>
+                            <span class="text-muted">Aucun rôle assigné</span>
                         }
                     </dd>
 
-                    <dt class="col-sm-3">Created Date</dt>
+                    <dt class="col-sm-3">Date de création</dt>
                     <dd class="col-sm-9">@Model.CreatedDate.ToString("dd MMM yyyy HH:mm")</dd>
                 </dl>
             </div>
@@ -63,10 +63,12 @@
             <form asp-action="DeleteUserConfirmed" method="post">
                 <input type="hidden" asp-for="Id" />
                 <div class="d-flex justify-content-end">
-                    <a asp-action="UserDetails" asp-route-id="@Model.Id" class="btn btn-secondary me-2">Cancel</a>
+                    <a asp-action="UserDetails" asp-route-id="@Model.Id" class="btn btn-secondary me-2">Annuler</a>
                     <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-user-times me-1"></i> Permanently Delete User
+                        <i class="fas fa-user-times me-1"></i> Supprimer définitivement l'utilisateur
                     </button>
                 </div>
             </form>
         </div>
+    </div>
+</div>

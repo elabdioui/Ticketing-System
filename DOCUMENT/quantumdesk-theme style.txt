@@ -1,0 +1,1482 @@
+/* QuantumDesk Theme - Style Guide
+ * Ce fichier contient tous les styles et variables pour maintenir
+ * une cohérence visuelle dans l'ensemble de l'application QuantumDesk.
+ *
+ * Version: 1.0.0
+ * Date: 2025-04-16
+ */
+
+/* ======================================================
+   VARIABLES GLOBALES - PALETTE DE COULEURS
+   ====================================================== */
+:root {
+    /* Couleurs principales */
+    --quantum-primary: #1a3a5f;       /* Bleu profond - Couleur principale */
+    --quantum-secondary: #00a78e;     /* Turquoise - Couleur secondaire/actions */
+    --quantum-tertiary: #7b68ee;      /* Violet clair - Accents/highlights */
+    --quantum-accent: #ff6b6b;        /* Rouge corail - Alertes/notifications */
+    
+    /* Variations des couleurs principales */
+    --quantum-primary-light: #2c4f7c;
+    --quantum-primary-dark: #0f2845;
+    --quantum-secondary-light: #00c1a5;
+    --quantum-secondary-dark: #018d79;
+    --quantum-tertiary-light: #8f7ef5;
+    --quantum-tertiary-dark: #6552d9;
+    --quantum-accent-light: #ff8585;
+    --quantum-accent-dark: #e55252;
+    
+    /* Couleurs neutres */
+    --quantum-light-bg: #f5f7fa;      /* Fond clair général */
+    --quantum-light-accent: #e9f7f5;  /* Fond clair accentué */
+    --quantum-dark-text: #2c3e50;     /* Texte foncé principal */
+    --quantum-light-text: #ffffff;    /* Texte clair */
+    --quantum-muted-text: #8da1b5;    /* Texte secondaire/désactivé */
+    --quantum-border: #e8ecef;        /* Bordures/séparateurs */
+    
+    /* Couleurs d'état */
+    --quantum-success: #2ecc71;       /* Succès */
+    --quantum-warning: #f39c12;       /* Avertissement */
+    --quantum-danger: #e74c3c;        /* Erreur/Danger */
+    --quantum-info: #3498db;          /* Information */
+    
+    /* Couleurs des indicateurs de priorité */
+    --quantum-priority-low: #2ecc71;
+    --quantum-priority-medium: #f39c12;
+    --quantum-priority-high: #e74c3c;
+    --quantum-priority-critical: #c0392b;
+    
+    /* Ombres */
+    --quantum-shadow-sm: 0 2px 5px rgba(26, 58, 95, 0.08);
+    --quantum-shadow: 0 5px 15px rgba(26, 58, 95, 0.12);
+    --quantum-shadow-lg: 0 15px 35px rgba(26, 58, 95, 0.15);
+    
+    /* Typographie */
+    --quantum-font-family: 'Poppins', 'Segoe UI', sans-serif;
+    --quantum-font-size-xs: 0.75rem;   /* 12px */
+    --quantum-font-size-sm: 0.875rem;  /* 14px */
+    --quantum-font-size-base: 1rem;    /* 16px */
+    --quantum-font-size-lg: 1.125rem;  /* 18px */
+    --quantum-font-size-xl: 1.25rem;   /* 20px */
+    --quantum-font-size-2xl: 1.5rem;   /* 24px */
+    --quantum-font-size-3xl: 1.875rem; /* 30px */
+    --quantum-font-size-4xl: 2.25rem;  /* 36px */
+    
+    /* Espacements */
+    --quantum-spacing-xs: 0.25rem;     /* 4px */
+    --quantum-spacing-sm: 0.5rem;      /* 8px */
+    --quantum-spacing-md: 1rem;        /* 16px */
+    --quantum-spacing-lg: 1.5rem;      /* 24px */
+    --quantum-spacing-xl: 2rem;        /* 32px */
+    --quantum-spacing-2xl: 3rem;       /* 48px */
+    
+    /* Arrondis */
+    --quantum-border-radius-sm: 0.25rem;  /* 4px */
+    --quantum-border-radius: 0.5rem;      /* 8px */
+    --quantum-border-radius-lg: 0.75rem;  /* 12px */
+    --quantum-border-radius-xl: 1rem;     /* 16px */
+    --quantum-border-radius-pill: 50rem;  /* Boutons en pilule */
+    
+    /* Transitions */
+    --quantum-transition-fast: all 0.2s ease;
+    --quantum-transition-default: all 0.3s ease;
+    --quantum-transition-slow: all 0.5s ease;
+}
+
+/* ======================================================
+   STYLES DE BASE
+   ====================================================== */
+body {
+    font-family: var(--quantum-font-family);
+    color: var(--quantum-dark-text);
+    background-color: var(--quantum-light-bg);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--quantum-primary);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--quantum-tertiary);
+    text-decoration: none;
+    transition: var(--quantum-transition-default);
+}
+
+a:hover {
+    color: var(--quantum-secondary);
+    text-decoration: underline;
+}
+
+/* ======================================================
+   UTILITIES ET HELPERS
+   ====================================================== */
+.quantum-text-primary { color: var(--quantum-primary) !important; }
+.quantum-text-secondary { color: var(--quantum-secondary) !important; }
+.quantum-text-tertiary { color: var(--quantum-tertiary) !important; }
+.quantum-text-accent { color: var(--quantum-accent) !important; }
+.quantum-text-muted { color: var(--quantum-muted-text) !important; }
+.quantum-text-light { color: var(--quantum-light-text) !important; }
+
+.quantum-bg-primary { background-color: var(--quantum-primary) !important; }
+.quantum-bg-secondary { background-color: var(--quantum-secondary) !important; }
+.quantum-bg-tertiary { background-color: var(--quantum-tertiary) !important; }
+.quantum-bg-accent { background-color: var(--quantum-accent) !important; }
+.quantum-bg-light { background-color: var(--quantum-light-bg) !important; }
+.quantum-bg-light-accent { background-color: var(--quantum-light-accent) !important; }
+
+.quantum-gradient-primary {
+    background: linear-gradient(135deg, var(--quantum-primary), var(--quantum-primary-light)) !important;
+}
+
+.quantum-gradient-secondary {
+    background: linear-gradient(135deg, var(--quantum-secondary), var(--quantum-secondary-light)) !important;
+}
+
+.quantum-gradient-tertiary {
+    background: linear-gradient(135deg, var(--quantum-tertiary), var(--quantum-tertiary-light)) !important;
+}
+
+.quantum-gradient-text {
+    background: linear-gradient(135deg, var(--quantum-secondary), var(--quantum-tertiary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+.quantum-shadow-sm { box-shadow: var(--quantum-shadow-sm) !important; }
+.quantum-shadow { box-shadow: var(--quantum-shadow) !important; }
+.quantum-shadow-lg { box-shadow: var(--quantum-shadow-lg) !important; }
+
+.quantum-rounded-sm { border-radius: var(--quantum-border-radius-sm) !important; }
+.quantum-rounded { border-radius: var(--quantum-border-radius) !important; }
+.quantum-rounded-lg { border-radius: var(--quantum-border-radius-lg) !important; }
+.quantum-rounded-xl { border-radius: var(--quantum-border-radius-xl) !important; }
+.quantum-rounded-pill { border-radius: var(--quantum-border-radius-pill) !important; }
+
+.quantum-border { border: 1px solid var(--quantum-border) !important; }
+.quantum-border-primary { border-color: var(--quantum-primary) !important; }
+.quantum-border-secondary { border-color: var(--quantum-secondary) !important; }
+.quantum-border-tertiary { border-color: var(--quantum-tertiary) !important; }
+
+.quantum-font-light { font-weight: 300 !important; }
+.quantum-font-normal { font-weight: 400 !important; }
+.quantum-font-medium { font-weight: 500 !important; }
+.quantum-font-semibold { font-weight: 600 !important; }
+.quantum-font-bold { font-weight: 700 !important; }
+.quantum-font-extrabold { font-weight: 800 !important; }
+
+/* ======================================================
+   COMPOSANTS
+   ====================================================== */
+
+/* Logo et Marque */
+.quantum-logo-icon {
+    color: var(--quantum-secondary);
+    margin-right: 0.5rem;
+    font-size: 2rem;
+}
+
+.quantum-logo-text {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, var(--quantum-secondary), var(--quantum-tertiary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+/* Badges */
+.quantum-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: var(--quantum-font-size-xs);
+    font-weight: 600;
+    border-radius: var(--quantum-border-radius-pill);
+    text-transform: uppercase;
+}
+
+.quantum-badge-primary {
+    background-color: rgba(26, 58, 95, 0.15);
+    color: var(--quantum-primary);
+}
+
+.quantum-badge-secondary {
+    background-color: rgba(0, 167, 142, 0.15);
+    color: var(--quantum-secondary);
+}
+
+.quantum-badge-tertiary {
+    background-color: rgba(123, 104, 238, 0.15);
+    color: var(--quantum-tertiary);
+}
+
+.quantum-badge-accent {
+    background-color: rgba(255, 107, 107, 0.15);
+    color: var(--quantum-accent);
+}
+
+.quantum-badge-success {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--quantum-success);
+}
+
+.quantum-badge-warning {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--quantum-warning);
+}
+
+.quantum-badge-danger {
+    background-color: rgba(231, 76, 60, 0.15);
+    color: var(--quantum-danger);
+}
+
+.quantum-badge-info {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: var(--quantum-info);
+}
+
+/* Boutons */
+.quantum-btn {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.6rem 1.5rem;
+    font-size: var(--quantum-font-size-base);
+    line-height: 1.5;
+    border-radius: var(--quantum-border-radius-pill);
+    transition: var(--quantum-transition-default);
+    text-decoration: none;
+    border: none;
+    box-shadow: var(--quantum-shadow-sm);
+}
+
+.quantum-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--quantum-shadow);
+    text-decoration: none;
+}
+
+.quantum-btn-primary {
+    background: linear-gradient(135deg, var(--quantum-tertiary), var(--quantum-tertiary-dark));
+    color: var(--quantum-light-text);
+    box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
+}
+
+.quantum-btn-primary:hover, .quantum-btn-primary:focus {
+    color: var(--quantum-light-text);
+    box-shadow: 0 8px 25px rgba(123, 104, 238, 0.4);
+}
+
+.quantum-btn-secondary {
+    background: linear-gradient(135deg, var(--quantum-secondary), var(--quantum-secondary-dark));
+    color: var(--quantum-light-text);
+    box-shadow: 0 5px 15px rgba(0, 167, 142, 0.3);
+}
+
+.quantum-btn-secondary:hover, .quantum-btn-secondary:focus {
+    color: var(--quantum-light-text);
+    box-shadow: 0 8px 25px rgba(0, 167, 142, 0.4);
+}
+
+.quantum-btn-accent {
+    background: linear-gradient(135deg, var(--quantum-accent), var(--quantum-accent-dark));
+    color: var(--quantum-light-text);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.quantum-btn-accent:hover, .quantum-btn-accent:focus {
+    color: var(--quantum-light-text);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.quantum-btn-outline {
+    background: transparent;
+    color: var(--quantum-primary);
+    border: 2px solid var(--quantum-primary);
+    box-shadow: none;
+}
+
+.quantum-btn-outline:hover, .quantum-btn-outline:focus {
+    color: var(--quantum-light-text);
+    background-color: var(--quantum-primary);
+}
+
+.quantum-btn-outline-secondary {
+    background: transparent;
+    color: var(--quantum-secondary);
+    border: 2px solid var(--quantum-secondary);
+    box-shadow: none;
+}
+
+.quantum-btn-outline-secondary:hover, .quantum-btn-outline-secondary:focus {
+    color: var(--quantum-light-text);
+    background-color: var(--quantum-secondary);
+}
+
+.quantum-btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: var(--quantum-font-size-sm);
+}
+
+.quantum-btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: var(--quantum-font-size-lg);
+}
+
+/* Cartes */
+.quantum-card {
+    background-color: var(--quantum-light-text);
+    border-radius: var(--quantum-border-radius-lg);
+    box-shadow: var(--quantum-shadow);
+    border: none;
+    overflow: hidden;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--quantum-shadow-lg);
+}
+
+.quantum-card-header {
+    padding: 1.5rem;
+    background-color: transparent;
+    border-bottom: 1px solid var(--quantum-border);
+}
+
+.quantum-card-body {
+    padding: 1.5rem;
+}
+
+.quantum-card-footer {
+    padding: 1.5rem;
+    background-color: transparent;
+    border-top: 1px solid var(--quantum-border);
+}
+
+.quantum-card-accent-left {
+    position: relative;
+}
+
+.quantum-card-accent-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--quantum-secondary), var(--quantum-tertiary));
+    border-radius: 4px 0 0 4px;
+}
+
+/* Formulaires */
+.quantum-form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1rem + 2px);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--quantum-dark-text);
+    background-color: var(--quantum-light-text);
+    background-clip: padding-box;
+    border: 1px solid var(--quantum-border);
+    border-radius: var(--quantum-border-radius);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quantum-form-control:focus {
+    border-color: var(--quantum-secondary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 167, 142, 0.25);
+    outline: 0;
+}
+
+.quantum-form-floating {
+    position: relative;
+}
+
+.quantum-form-floating > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem;
+    pointer-events: none;
+    border: 1px solid transparent;
+    transform-origin: 0 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    color: var(--quantum-muted-text);
+}
+
+.quantum-form-floating > .quantum-form-control:focus,
+.quantum-form-floating > .quantum-form-control:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.quantum-form-floating > .quantum-form-control:focus ~ label,
+.quantum-form-floating > .quantum-form-control:not(:placeholder-shown) ~ label {
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Navbar */
+.quantum-navbar {
+    padding: 1rem 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--quantum-shadow);
+}
+
+.quantum-nav-link {
+    color: var(--quantum-dark-text);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.quantum-nav-link:hover {
+    color: var(--quantum-secondary);
+}
+
+.quantum-nav-link.active {
+    color: var(--quantum-secondary);
+    font-weight: 600;
+}
+
+/* Hero Section */
+.quantum-hero {
+    background: linear-gradient(135deg, var(--quantum-primary), var(--quantum-primary-light));
+    color: var(--quantum-light-text);
+    padding: 5rem 0;
+    border-radius: var(--quantum-border-radius-lg);
+    box-shadow: var(--quantum-shadow-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.quantum-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233a5f87' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.quantum-hero-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    position: relative;
+}
+
+.quantum-hero-subtitle {
+    font-weight: 300;
+    opacity: 0.85;
+}
+
+/* Divider Dots */
+.quantum-divider-dots {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+.quantum-divider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+    opacity: 0.5;
+}
+
+.quantum-divider-dot:nth-child(1) {
+    background-color: var(--quantum-tertiary);
+}
+
+.quantum-divider-dot:nth-child(2) {
+    background-color: var(--quantum-secondary);
+    opacity: 0.7;
+}
+
+.quantum-divider-dot:nth-child(3) {
+    background-color: var(--quantum-accent);
+    opacity: 0.5;
+}
+
+/* Feature Cards */
+.quantum-feature-card {
+    border-bottom: 4px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.quantum-feature-card:hover {
+    border-bottom-color: var(--quantum-secondary);
+}
+
+.quantum-feature-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--quantum-secondary), var(--quantum-tertiary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+/* Features List */
+.quantum-features-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.quantum-features-list li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.quantum-feature-icon-small {
+    color: var(--quantum-secondary);
+    margin-right: 0.75rem;
+    min-width: 20px;
+    margin-top: 0.25rem;
+}
+
+/* Stats Cards */
+.quantum-stat-card {
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: var(--quantum-light-accent);
+}
+
+.quantum-stat-icon {
+    font-size: 2rem;
+    color: var(--quantum-secondary);
+    margin-right: 1rem;
+}
+
+.quantum-stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--quantum-primary);
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.quantum-stat-label {
+    font-size: 0.875rem;
+    color: var(--quantum-muted-text);
+    margin-bottom: 0;
+}
+
+/* Password Strength Meter */
+.quantum-password-strength {
+    height: 5px;
+    background-color: #e9ecef;
+    border-radius: 50rem;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+
+.quantum-password-strength-meter {
+    height: 100%;
+    border-radius: 50rem;
+    transition: width 0.3s ease;
+}
+
+.quantum-password-weak {
+    width: 25%;
+    background-color: var(--quantum-accent);
+}
+
+.quantum-password-medium {
+    width: 50%;
+    background-color: var(--quantum-warning);
+}
+
+.quantum-password-strong {
+    width: 75%;
+    background-color: #77c13a;
+}
+
+.quantum-password-very-strong {
+    width: 100%;
+    background-color: var(--quantum-secondary);
+}
+
+/* Divider with Text */
+.quantum-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: var(--quantum-muted-text);
+}
+
+.quantum-divider::before,
+.quantum-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--quantum-border);
+}
+
+.quantum-divider::before {
+    margin-right: 1rem;
+}
+
+.quantum-divider::after {
+    margin-left: 1rem;
+}
+
+/* Footer */
+.quantum-footer {
+    background-color: var(--quantum-primary);
+    color: var(--quantum-light-text);
+    padding: 2.5rem 0;
+    margin-top: 5rem;
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.quantum-footer-link {
+    color: var(--quantum-muted-text);
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-footer-link:hover {
+    color: var(--quantum-light-text);
+    text-decoration: none;
+}
+
+.quantum-footer-title {
+    color: var(--quantum-light-text);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.quantum-social-icon {
+    color: var(--quantum-light-text);
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-social-icon:hover {
+    color: var(--quantum-secondary);
+    transform: translateY(-3px);
+}
+
+/* ======================================================
+   UTILITAIRES SPÉCIFIQUES AU SYSTÈME DE TICKETS
+   ====================================================== */
+
+/* Statuts des tickets */
+.quantum-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--quantum-border-radius-pill);
+    font-size: var(--quantum-font-size-xs);
+    font-weight: 600;
+}
+
+.quantum-status-icon {
+    margin-right: 0.5rem;
+}
+
+.quantum-status-new {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: var(--quantum-info);
+}
+
+.quantum-status-in-progress {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--quantum-warning);
+}
+
+.quantum-status-on-hold {
+    background-color: rgba(155, 89, 182, 0.15);
+    color: #9b59b6; /* Violet */
+}
+
+.quantum-status-resolved {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--quantum-success);
+}
+
+.quantum-status-closed {
+    background-color: rgba(52, 73, 94, 0.15);
+    color: #34495e; /* Gris foncé */
+}
+
+/* Priorités des tickets */
+.quantum-priority {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--quantum-border-radius-pill);
+    font-size: var(--quantum-font-size-xs);
+    font-weight: 600;
+}
+
+.quantum-priority-icon {
+    margin-right: 0.35rem;
+}
+
+.quantum-priority-low {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--quantum-priority-low);
+}
+
+.quantum-priority-medium {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--quantum-priority-medium);
+}
+
+.quantum-priority-high {
+    background-color: rgba(231, 76, 60, 0.15);
+    color: var(--quantum-priority-high);
+}
+
+.quantum-priority-critical {
+    background-color: rgba(192, 57, 43, 0.15);
+    color: var(--quantum-priority-critical);
+}
+
+/* Tables de tickets */
+.quantum-ticket-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.quantum-ticket-table th {
+    background-color: var(--quantum-light-bg);
+    color: var(--quantum-primary);
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 2px solid var(--quantum-border);
+}
+
+.quantum-ticket-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--quantum-border);
+    vertical-align: middle;
+}
+
+.quantum-ticket-table tr {
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-ticket-table tbody tr:hover {
+    background-color: var(--quantum-light-accent);
+}
+
+.quantum-ticket-id {
+    font-family: monospace;
+    font-weight: 600;
+    color: var(--quantum-tertiary);
+}
+
+/* Onglets */
+.quantum-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--quantum-border);
+    margin-bottom: 1.5rem;
+}
+
+.quantum-tab {
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    color: var(--quantum-muted-text);
+    font-weight: 500;
+    transition: var(--quantum-transition-default);
+    position: relative;
+}
+
+.quantum-tab:hover {
+    color: var(--quantum-secondary);
+}
+
+.quantum-tab.active {
+    color: var(--quantum-secondary);
+    font-weight: 600;
+}
+
+.quantum-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--quantum-secondary), var(--quantum-tertiary));
+    border-radius: 3px 3px 0 0;
+}
+
+/* Timeline du ticket */
+.quantum-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.quantum-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 7px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--quantum-secondary) 0%, var(--quantum-tertiary) 100%);
+}
+
+.quantum-timeline-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.quantum-timeline-icon {
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--quantum-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 8px;
+}
+
+.quantum-timeline-content {
+    background-color: var(--quantum-light-text);
+    border-radius: var(--quantum-border-radius);
+    padding: 1rem;
+    box-shadow: var(--quantum-shadow-sm);
+}
+
+.quantum-timeline-date {
+    color: var(--quantum-muted-text);
+    font-size: var(--quantum-font-size-sm);
+    margin-bottom: 0.5rem;
+}
+
+.quantum-timeline-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Commentaires du ticket */
+.quantum-comment {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.quantum-comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--quantum-light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    color: var(--quantum-primary);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.quantum-comment-content {
+    flex: 1;
+    background-color: var(--quantum-light-text);
+    border-radius: var(--quantum-border-radius);
+    padding: 1rem;
+    box-shadow: var(--quantum-shadow-sm);
+    position: relative;
+}
+
+.quantum-comment-content::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--quantum-light-text);
+    transform: rotate(45deg);
+}
+
+.quantum-comment-author {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.quantum-comment-time {
+    color: var(--quantum-muted-text);
+    font-size: var(--quantum-font-size-xs);
+    margin-bottom: 0.5rem;
+}
+
+.quantum-comment-text {
+    margin-bottom: 0;
+}
+
+.quantum-comment-internal {
+    border-left: 3px solid var(--quantum-tertiary);
+    background-color: rgba(123, 104, 238, 0.05);
+}
+
+/* SLA Indicators */
+.quantum-sla-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--quantum-border-radius-pill);
+    font-size: var(--quantum-font-size-xs);
+    font-weight: 600;
+}
+
+.quantum-sla-ok {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--quantum-success);
+}
+
+.quantum-sla-warning {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--quantum-warning);
+}
+
+.quantum-sla-breach {
+    background-color: rgba(231, 76, 60, 0.15);
+    color: var(--quantum-danger);
+}
+
+/* Search Box */
+.quantum-search-box {
+    position: relative;
+}
+
+.quantum-search-input {
+    padding-left: 2.5rem;
+    height: 45px;
+    border-radius: var(--quantum-border-radius-pill);
+    border: 1px solid var(--quantum-border);
+    width: 100%;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-search-input:focus {
+    border-color: var(--quantum-secondary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 167, 142, 0.25);
+}
+
+.quantum-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--quantum-muted-text);
+    pointer-events: none;
+}
+
+/* Filter Chips */
+.quantum-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.quantum-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    background-color: var(--quantum-light-bg);
+    border-radius: var(--quantum-border-radius-pill);
+    font-size: var(--quantum-font-size-xs);
+    color: var(--quantum-dark-text);
+    cursor: pointer;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-filter-chip:hover {
+    background-color: var(--quantum-light-accent);
+}
+
+.quantum-filter-chip.active {
+    background-color: var(--quantum-secondary);
+    color: var(--quantum-light-text);
+}
+
+.quantum-filter-chip-remove {
+    margin-left: 0.5rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+/* Dashboard Widgets */
+.quantum-widget {
+    background-color: var(--quantum-light-text);
+    border-radius: var(--quantum-border-radius-lg);
+    box-shadow: var(--quantum-shadow);
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.quantum-widget-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantum-widget-subtitle {
+    color: var(--quantum-muted-text);
+    font-size: var(--quantum-font-size-sm);
+    margin-bottom: 1.5rem;
+}
+
+.quantum-widget-icon {
+    color: var(--quantum-tertiary);
+}
+
+.quantum-widget-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--quantum-primary);
+}
+
+.quantum-widget-label {
+    color: var(--quantum-muted-text);
+}
+
+.quantum-widget-trend {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--quantum-font-size-sm);
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.quantum-widget-trend-up {
+    color: var(--quantum-success);
+}
+
+.quantum-widget-trend-down {
+    color: var(--quantum-danger);
+}
+
+.quantum-widget-trend i {
+    margin-right: 0.25rem;
+}
+
+/* Charts Container */
+.quantum-chart-container {
+    height: 250px;
+    margin-top: 1rem;
+}
+
+/* Loading Indicators */
+.quantum-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 167, 142, 0.2);
+    border-radius: 50%;
+    border-top-color: var(--quantum-secondary);
+    animation: quantum-spin 1s linear infinite;
+}
+
+@keyframes quantum-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.quantum-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: inherit;
+}
+
+/* Notifications */
+.quantum-notification {
+    position: relative;
+    background-color: var(--quantum-light-text);
+    border-radius: var(--quantum-border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--quantum-shadow);
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-notification:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--quantum-shadow-lg);
+}
+
+.quantum-notification-info {
+    border-left: 4px solid var(--quantum-info);
+}
+
+.quantum-notification-success {
+    border-left: 4px solid var(--quantum-success);
+}
+
+.quantum-notification-warning {
+    border-left: 4px solid var(--quantum-warning);
+}
+
+.quantum-notification-danger {
+    border-left: 4px solid var(--quantum-danger);
+}
+
+.quantum-notification-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: var(--quantum-muted-text);
+    cursor: pointer;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-notification-close:hover {
+    color: var(--quantum-dark-text);
+}
+
+.quantum-notification-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.quantum-notification-time {
+    font-size: var(--quantum-font-size-xs);
+    color: var(--quantum-muted-text);
+}
+
+/* Pagination */
+.quantum-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.quantum-pagination-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--quantum-border-radius);
+    margin: 0 0.25rem;
+    color: var(--quantum-dark-text);
+    font-weight: 500;
+    transition: var(--quantum-transition-default);
+}
+
+.quantum-pagination-item:hover {
+    background-color: var(--quantum-light-accent);
+    color: var(--quantum-secondary);
+}
+
+.quantum-pagination-item.active {
+    background-color: var(--quantum-secondary);
+    color: var(--quantum-light-text);
+}
+
+.quantum-pagination-item.disabled {
+    color: var(--quantum-muted-text);
+    cursor: not-allowed;
+}
+
+/* ======================================================
+   MEDIA QUERIES
+   ====================================================== */
+@media (max-width: 1199.98px) {
+    .quantum-hero {
+        padding: 4rem 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .quantum-card-body {
+        padding: 1.25rem;
+    }
+    
+    .quantum-hero {
+        padding: 3rem 0;
+    }
+    
+    .quantum-widget {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    :root {
+        --quantum-font-size-4xl: 1.875rem; /* réduire pour mobile */
+        --quantum-font-size-3xl: 1.5rem;
+    }
+    
+    .quantum-hero {
+        padding: 2.5rem 0;
+        border-radius: var(--quantum-border-radius);
+    }
+    
+    .quantum-navbar {
+        padding: 0.75rem 0;
+    }
+    
+    .quantum-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .quantum-logo-icon {
+        font-size: 1.5rem;
+    }
+    
+    .quantum-stat-card {
+        padding: 1rem;
+    }
+    
+    .quantum-comment {
+        flex-direction: column;
+    }
+    
+    .quantum-comment-avatar {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .quantum-comment-content::before {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    :root {
+        --quantum-spacing-xl: 1.5rem;
+        --quantum-spacing-2xl: 2rem;
+    }
+    
+    .quantum-hero {
+        padding: 2rem 1rem;
+    }
+    
+    .quantum-card-header, 
+    .quantum-card-body, 
+    .quantum-card-footer {
+        padding: 1rem;
+    }
+    
+    .quantum-btn-lg {
+        padding: 0.6rem 1.5rem;
+        font-size: var(--quantum-font-size-base);
+    }
+    
+    .quantum-widget-number {
+        font-size: 2rem;
+    }
+}
+
+/* ======================================================
+   ANIMATIONS
+   ====================================================== */
+@keyframes quantum-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes quantum-slide-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes quantum-slide-down {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes quantum-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.quantum-animate-fade-in {
+    animation: quantum-fade-in 0.5s ease forwards;
+}
+
+.quantum-animate-slide-up {
+    animation: quantum-slide-up 0.5s ease forwards;
+}
+
+.quantum-animate-slide-down {
+    animation: quantum-slide-down 0.5s ease forwards;
+}
+
+.quantum-animate-pulse {
+    animation: quantum-pulse 2s ease infinite;
+}
+
+/* ======================================================
+   INTEGRATION
+   ====================================================== */
+
+/* Instructions pour intégrer ce thème dans votre projet ASP.NET Core:
+
+1. Créez un fichier "quantum-theme.css" dans votre dossier wwwroot/css
+   et copiez-y tout le contenu de ce fichier.
+
+2. Dans votre fichier _Layout.cshtml, ajoutez la référence à ce fichier CSS:
+   <link rel="stylesheet" href="~/css/quantum-theme.css" />
+
+3. Ajoutez également les références aux polices Google et aux icônes Font Awesome:
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+4. Pour utiliser le thème, appliquez les classes CSS avec le préfixe "quantum-" aux éléments HTML.
+   Par exemple:
+   <button class="quantum-btn quantum-btn-primary">Mon bouton</button>
+   <div class="quantum-card quantum-card-accent-left">Mon contenu</div>
+
+5. Pour les variables CSS globales, vous pouvez les utiliser dans votre propre CSS:
+   .mon-element {
+     color: var(--quantum-secondary);
+     border-radius: var(--quantum-border-radius);
+   }
+*/
+
+/* ======================================================
+   EXEMPLES D'UTILISATION
+   ====================================================== */
+
+/* 
+Exemple de navbar:
+-----------------
+<nav class="quantum-navbar">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="#" class="d-flex align-items-center">
+        <i class="fas fa-ticket-alt quantum-logo-icon"></i>
+        <span class="quantum-logo-text">QuantumDesk</span>
+      </a>
+      <div class="d-flex">
+        <a href="#" class="quantum-nav-link active">Accueil</a>
+        <a href="#" class="quantum-nav-link">Tickets</a>
+        <a href="#" class="quantum-nav-link">Rapports</a>
+        <a href="#" class="quantum-nav-link">Base de connaissances</a>
+      </div>
+      <div>
+        <a href="#" class="quantum-btn quantum-btn-primary">Connexion</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+Exemple de carte ticket:
+-----------------------
+<div class="quantum-card quantum-card-accent-left mb-4">
+  <div class="quantum-card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <span class="quantum-ticket-id">#QD-1234</span>
+      <div>
+        <span class="quantum-status quantum-status-in-progress">
+          <i class="fas fa-spinner quantum-status-icon"></i>En cours
+        </span>
+        <span class="quantum-priority quantum-priority-high ms-2">
+          <i class="fas fa-arrow-up quantum-priority-icon"></i>Haute
+        </span>
+      </div>
+    </div>
+    <h5>Problème de connexion à l'application mobile</h5>
+    <p class="quantum-text-muted">Dernière mise à jour il y a 2 heures par Thomas Dupont</p>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <div>
+        <span class="quantum-badge quantum-badge-secondary me-2">Mobile</span>
+        <span class="quantum-badge quantum-badge-tertiary">Authentification</span>
+      </div>
+      <a href="#" class="quantum-btn quantum-btn-sm quantum-btn-outline-secondary">Voir détails</a>
+    </div>
+  </div>
+</div>
+
+Exemple de widget dashboard:
+---------------------------
+<div class="quantum-widget">
+  <div class="quantum-widget-title">
+    <span>Tickets ouverts</span>
+    <i class="fas fa-ticket-alt quantum-widget-icon"></i>
+  </div>
+  <div class="quantum-widget-subtitle">Cette semaine</div>
+  <div class="quantum-widget-number">
+    42
+    <span class="quantum-widget-trend quantum-widget-trend-down">
+      <i class="fas fa-arrow-down"></i>12%
+    </span>
+  </div>
+  <div class="quantum-widget-label">vs. 48 la semaine dernière</div>
+  <div class="quantum-chart-container">
+    <!-- Intégration de graphiques ici -->
+  </div>
+</div>
+*/
