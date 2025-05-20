@@ -53,10 +53,7 @@ QuantumDesk follows a clean architecture approach with the following layers:
 
 This design ensures separation of concerns, testability, and maintainability.
 
-<div align="center">
-  <img src="https://via.placeholder.com/800x400?text=QuantumDesk+Architecture" alt="Architecture Diagram"/>
-  <p><em>QuantumDesk Architecture Diagram</em></p>
-</div>
+
 
 ## 🚦 Getting Started
 
@@ -72,20 +69,20 @@ The fastest way to get started is using Docker:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/quantum-desk.git
+git clone https://github.com/elabdioui/Ticketing-System.git
 cd quantum-desk
 
 # Start the containers
 docker-compose up -d
 ```
 
-The application will be available at http://localhost:8080
+The application will be available at http://localhost:7041
 
 ### Manual Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/quantum-desk.git
+   git clone https://github.com/elabdioui/Ticketing-System.git
    cd quantum-desk
    ```
 
@@ -106,7 +103,7 @@ The application will be available at http://localhost:8080
    dotnet run
    ```
 
-5. Navigate to https://localhost:7258 in your browser
+5. Navigate to https://localhost:7041 in your browser
 
 ## 👤 User Roles
 
@@ -177,10 +174,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <div align="center">
-  <p>Made with ❤️ by Your Team</p>
+  <p>Made with ❤️ by Haitham</p>
   <p>
-    <a href="https://github.com/yourusername/quantum-desk">GitHub</a> •
-    <a href="https://yourdomain.com/docs">Documentation</a> •
-    <a href="mailto:support@yourdomain.com">Support</a>
+    <a href="https://github.com/elabdioui">GitHub</a> •
+    <a href="mailto:elabdiouihaitham@gmail.com">Mail</a>
   </p>
 </div>
